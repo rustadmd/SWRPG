@@ -37,7 +37,7 @@ public class SqlUtilities {
 			String programPath = Settings.getDatabasePath();
 			//Construct the file path from the current file location
 			String filePrefix = "jdbc:sqlite:";
-			String dbName = "testing3.s3db";
+			String dbName = "swrpg.s3db";
 			String totalPath = filePrefix + programPath + dbName;
 			//String totalPath = filePrefix + dbName;
 

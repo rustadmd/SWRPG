@@ -5,6 +5,10 @@
  */
 package swrpg.gui;
 
+import javax.swing.JLabel;
+
+import swrpg.model.Character;
+
 /**
  * @author Mark
  *
@@ -19,5 +23,8 @@ public class CharHeaderPanel extends TitledBorderPanel {
 	public CharHeaderPanel (Character c)
 	{
 		super("Character:");
+		String header = "Character Name:\t" + c.getName() + "\nSpecies:\t" + c.getRace();
+		JLabel name = new JLabel(header);
+		add(name);
 	}
 }

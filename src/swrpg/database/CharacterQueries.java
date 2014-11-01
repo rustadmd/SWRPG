@@ -1,0 +1,45 @@
+/**
+ * @author Mark Rustad
+ * @version .01
+ * @date Nov 1, 2014
+ */
+package swrpg.database;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+/**
+ * @author Mark
+ *
+ */
+public class CharacterQueries {
+	
+	private SqlUtilities su = new SqlUtilities();
+	
+	public ResultSet getDetails(int charId)
+	{
+		Connection swdb = su.getDbConnection();
+		PreparedStatement query = null;
+		ResultSet charDetails = null;
+		
+		try
+		{
+			query = swdb.prepareStatement("SELECT c.name, player, gender, age, height"
+					+ ", build, hair, eyes, noteableFeatures, history, r.name AS race "
+					+ " FROM Character c "
+					+ " JOIN Race r ON r.raceId = c.raceId "
+					+ " WHERE charId = ? ");
+			query.setInt(1, charId);
+			charDetails = query.executeQuery();
+			System.out.println("Result test: " + charDetails.getString("name"));
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return charDetails;
+	}
+
+}

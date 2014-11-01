@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
+import swrpg.model.Character;
+
 /**
  * @author Mark
  *
@@ -25,6 +27,12 @@ public class MainWindow extends JFrame {
 		setLayout(new BorderLayout());
 		setVisible(true);
 		
+		//testing
+		Character mark = new Character(1000);
+		CharHeaderPanel charPanel = new CharHeaderPanel(mark);
+		add(charPanel);
+		
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		pack();
 	}
 
