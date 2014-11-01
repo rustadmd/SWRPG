@@ -29,7 +29,7 @@ public class MainWindow extends JFrame {
 		
 		//testing
 		Character mark = new Character(1000);
-		CharHeaderPanel charPanel = new CharHeaderPanel(mark);
+		CharacterPanel charPanel = new CharacterPanel(mark);
 		add(charPanel);
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

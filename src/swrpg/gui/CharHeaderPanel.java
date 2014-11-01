@@ -7,8 +7,6 @@ package swrpg.gui;
 
 import java.awt.GridLayout;
 
-import javax.swing.JLabel;
-
 import swrpg.model.Character;
 
 /**
@@ -24,7 +22,7 @@ public class CharHeaderPanel extends TitledBorderPanel {
 
 	public CharHeaderPanel (Character c)
 	{
-		super("Character:");
+		super("CHARACTER");
 		int numColumns = 1;
 		int numRows = 5;
 		setLayout(new GridLayout(numRows, numColumns));

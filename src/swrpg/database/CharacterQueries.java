@@ -27,7 +27,7 @@ public class CharacterQueries {
 		try
 		{
 			query = swdb.prepareStatement("SELECT c.name, player, gender, age, height"
-					+ ", build, hair, eyes, noteableFeatures, history, r.name AS race "
+					+ ", build, hair, eyes, noteableFeatures, history, credits, r.name AS race "
 					+ " FROM Character c "
 					+ " JOIN Race r ON r.raceId = c.raceId "
 					+ " WHERE charId = ? ");
