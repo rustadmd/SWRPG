@@ -5,6 +5,8 @@
  */
 package swrpg.gui;
 
+import java.awt.GridLayout;
+
 import javax.swing.JLabel;
 
 import swrpg.model.Character;
@@ -23,8 +25,17 @@ public class CharHeaderPanel extends TitledBorderPanel {
 	public CharHeaderPanel (Character c)
 	{
 		super("Character:");
-		String header = "Character Name:\t" + c.getName() + "\nSpecies:\t" + c.getRace();
-		JLabel name = new JLabel(header);
+		int numColumns = 1;
+		int numRows = 5;
+		setLayout(new GridLayout(numRows, numColumns));
+		
+		//add the header fields
+		FieldDisplay player = new FieldDisplay("Player", c.getPlayer());
+		add(player);
+		FieldDisplay name = new FieldDisplay("Character Name", c.getName());
 		add(name);
+		FieldDisplay race = new FieldDisplay("Species", c.getRace());
+		add(race);
+		
 	}
 }

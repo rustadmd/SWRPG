@@ -33,10 +33,11 @@ public class CharacterQueries {
 					+ " WHERE charId = ? ");
 			query.setInt(1, charId);
 			charDetails = query.executeQuery();
-			System.out.println("Result test: " + charDetails.getString("name"));
+			//System.out.println("Result test: " + charDetails.getString("name"));
 		}
 		catch (SQLException e)
 		{
+			System.out.printf("Possible error, no character found with that id (%s) or DB connection issue", charId);
 			e.printStackTrace();
 		}
 		return charDetails;
