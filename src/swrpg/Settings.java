@@ -3,10 +3,13 @@
  */
 package swrpg;
 
+import java.awt.Font;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.sql.Driver;
 import java.sql.DriverManager;
+
+import javax.swing.UIManager;
 
 import swrpg.database.DriverShim;
 
@@ -21,6 +24,7 @@ public class Settings {
 	private static String m_programPath;
 	private static String m_databasePath;
 	private static String m_imagePath;
+	private static final Font LABEL_FONT = UIManager.getDefaults().getFont("Label.font");
 	//public static FullCardSet fcs; //there is only one master list of cards
 	
 	/**
@@ -96,6 +100,13 @@ public class Settings {
 			e.printStackTrace();
 		} 
 		
+	}
+
+	/**
+	 * @return the labelFont
+	 */
+	public static Font getLabelFont() {
+		return LABEL_FONT;
 	}
 	
 

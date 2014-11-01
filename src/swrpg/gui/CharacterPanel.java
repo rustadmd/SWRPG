@@ -40,6 +40,14 @@ public class CharacterPanel extends JPanel {
 		description.gridx = 1;
 		description.gridy = 0;
 		add(new CharDescriptionPanel(c), description);
+		
+		//characteristics panel
+		GridBagConstraints charac = new GridBagConstraints();
+		charac.fill = GridBagConstraints.HORIZONTAL;
+		charac.gridx = 0;
+		charac.gridy = 1;
+		charac.gridwidth = 2;
+		add(new CharacteristicsPanel(c), charac);
 	}
 
 }

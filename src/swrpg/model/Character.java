@@ -19,8 +19,12 @@ public class Character {
 	//Character Fields
 	private int charId;
 	
+	//Narrative elements
 	private String name, player, gender, age, height, build, hair, eyes, noteableFeatures, history, race;
-
+	
+	//Characteristics stats
+	private int brawn, agility, intellect, cunning, willpower, presence;
+	
 	public Character (int id)
 	{
 		charId = id;
@@ -43,6 +47,16 @@ public class Character {
 			history = charDetails.getString("history");
 			race = charDetails.getString("race");
 			charDetails.close();
+			
+			//Load characteristics
+			ResultSet charact = cq.getCharacteristics(charId);
+			brawn = charact.getInt("brawn");
+			agility = charact.getInt("agility");
+			intellect = charact.getInt("intellect");
+			cunning = charact.getInt("cunning");
+			willpower = charact.getInt("willpower");
+			presence = charact.getInt("presence");
+			charact.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -131,5 +145,47 @@ public class Character {
 	 */
 	public String getRace() {
 		return race;
+	}
+
+	/**
+	 * @return the brawn
+	 */
+	public int getBrawn() {
+		return brawn;
+	}
+
+	/**
+	 * @return the agility
+	 */
+	public int getAgility() {
+		return agility;
+	}
+
+	/**
+	 * @return the intellect
+	 */
+	public int getIntellect() {
+		return intellect;
+	}
+
+	/**
+	 * @return the cunning
+	 */
+	public int getCunning() {
+		return cunning;
+	}
+
+	/**
+	 * @return the willpower
+	 */
+	public int getWillpower() {
+		return willpower;
+	}
+
+	/**
+	 * @return the presence
+	 */
+	public int getPresence() {
+		return presence;
 	}
 }

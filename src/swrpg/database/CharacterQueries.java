@@ -42,5 +42,31 @@ public class CharacterQueries {
 		}
 		return charDetails;
 	}
+	
+	public ResultSet getCharacteristics(int charId)
+	{
+		Connection swdb = su.getDbConnection();
+		PreparedStatement query = null;
+		ResultSet characteristics = null;
+		
+		try
+		{
+			query = swdb.prepareStatement(
+					"SELECT brawn, agility, intellect, cunning, willpower, presence "
+					+ " FROM Characteristics c "
+					+ " JOIN Character c2 ON c.characteristicsId=c2.characteristicsId "
+					+ " WHERE charId = ? ");
+			query.setInt(1, charId);
+			characteristics = query.executeQuery();
+			//System.out.println("Result test: " + charDetails.getString("name"));
+		}
+		catch (SQLException e)
+		{
+			System.out.printf("Possible error, no character found with that id (%s) or DB connection issue", charId);
+			e.printStackTrace();
+		}
+		
+		return characteristics;
+	}
 
 }
