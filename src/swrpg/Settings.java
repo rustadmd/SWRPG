@@ -8,7 +8,7 @@ import java.net.URLClassLoader;
 import java.sql.Driver;
 import java.sql.DriverManager;
 
-import swrpg.Database.DriverShim;
+import swrpg.database.DriverShim;
 
 /**
  * @author Mark Rustad
