@@ -26,6 +26,10 @@ public class Character {
 	//Characteristics stats
 	private int brawn, agility, intellect, cunning, willpower, presence;
 	
+	//Numerical stats
+	private int xpTotal, xpAvailable, credits;
+	private int woundMax, strainMax, encumbMax, wound, strain, encumb, soak, def_range, def_melee;
+	//Skills
 	private ArrayList<Skill> genSkills, combatSkills, knowledgeSkills;
 	
 	public Character (int id)
@@ -49,6 +53,9 @@ public class Character {
 			noteableFeatures = charDetails.getString("noteableFeatures");
 			history = charDetails.getString("history");
 			race = charDetails.getString("race");
+			credits = charDetails.getInt("credits");
+			xpTotal = charDetails.getInt("xpTotal");
+			xpAvailable = charDetails.getInt("xpAvailable");
 			charDetails.close();
 			
 			//Load characteristics
@@ -217,5 +224,89 @@ public class Character {
 	 */
 	public ArrayList<Skill> getKnowledgeSkills() {
 		return knowledgeSkills;
+	}
+
+	/**
+	 * @return the xpTotal
+	 */
+	public int getXpTotal() {
+		return xpTotal;
+	}
+
+	/**
+	 * @return the xpAvailable
+	 */
+	public int getXpAvailable() {
+		return xpAvailable;
+	}
+
+	/**
+	 * @return the credits
+	 */
+	public int getCredits() {
+		return credits;
+	}
+
+	/**
+	 * @return the woundMax
+	 */
+	public int getWoundMax() {
+		return woundMax;
+	}
+
+	/**
+	 * @return the strainMax
+	 */
+	public int getStrainMax() {
+		return strainMax;
+	}
+
+	/**
+	 * @return the encumbMax
+	 */
+	public int getEncumbMax() {
+		return encumbMax;
+	}
+
+	/**
+	 * @return the wound
+	 */
+	public int getWound() {
+		return wound;
+	}
+
+	/**
+	 * @return the strain
+	 */
+	public int getStrain() {
+		return strain;
+	}
+
+	/**
+	 * @return the encumb
+	 */
+	public int getEncumb() {
+		return encumb;
+	}
+
+	/**
+	 * @return the soak
+	 */
+	public int getSoak() {
+		return soak;
+	}
+
+	/**
+	 * @return the def_range
+	 */
+	public int getDef_range() {
+		return def_range;
+	}
+
+	/**
+	 * @return the def_melee
+	 */
+	public int getDef_melee() {
+		return def_melee;
 	}
 }
