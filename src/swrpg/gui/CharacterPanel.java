@@ -48,6 +48,12 @@ public class CharacterPanel extends JPanel {
 		charac.gridy = 1;
 		charac.gridwidth = 2;
 		add(new CharacteristicsPanel(c), charac);
+		
+		GridBagConstraints genSkills = new GridBagConstraints();
+		genSkills.fill = GridBagConstraints.HORIZONTAL;
+		genSkills.gridx = 0;
+		genSkills.gridy = 2;
+		add(new SkillsPanel("GENERAL SKILLS", c.getGenSkills()), genSkills);
 	}
 
 }

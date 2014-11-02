@@ -6,6 +6,7 @@
 package swrpg.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import swrpg.database.CharacterQueries;
 /**
@@ -24,6 +25,8 @@ public class Character {
 	
 	//Characteristics stats
 	private int brawn, agility, intellect, cunning, willpower, presence;
+	
+	private ArrayList<Skill> genSkills, combatSkills, knowledgeSkills;
 	
 	public Character (int id)
 	{
@@ -57,6 +60,12 @@ public class Character {
 			willpower = charact.getInt("willpower");
 			presence = charact.getInt("presence");
 			charact.close();
+			
+			//load skills
+			genSkills = cq.getSkills(charId, "General");
+			combatSkills = cq.getSkills(charId, "Combat");
+			knowledgeSkills = cq.getSkills(charId, "Knowledge");
+			System.out.println("Character created..." + this.getName());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -187,5 +196,26 @@ public class Character {
 	 */
 	public int getPresence() {
 		return presence;
+	}
+
+	/**
+	 * @return the genSkills
+	 */
+	public ArrayList<Skill> getGenSkills() {
+		return genSkills;
+	}
+
+	/**
+	 * @return the combatSkills
+	 */
+	public ArrayList<Skill> getCombatSkills() {
+		return combatSkills;
+	}
+
+	/**
+	 * @return the knowledgeSkills
+	 */
+	public ArrayList<Skill> getKnowledgeSkills() {
+		return knowledgeSkills;
 	}
 }

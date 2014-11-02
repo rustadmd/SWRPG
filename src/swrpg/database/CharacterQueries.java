@@ -9,6 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import swrpg.model.Skill;
 
 /**
  * @author Mark
@@ -67,6 +70,45 @@ public class CharacterQueries {
 		}
 		
 		return characteristics;
+	}
+	
+	public ArrayList<Skill> getSkills(int charId, String type)
+	{
+		Connection swdb = su.getDbConnection();
+		PreparedStatement query = null;
+		ResultSet skillsResult = null;
+		ArrayList<Skill> skills = new ArrayList<Skill>();//throwaway list, so there can be another
+		
+		try
+		{
+			query = swdb.prepareStatement(
+					"SELECT s.skillId, name, baseCharacteristic, type, rank "
+					+ "FROM Skills s JOIN SkillList sl ON s.skillId = sl.skillId "
+					+ " WHERE charId = ? AND type = ? ");
+			query.setInt(1, charId);
+			query.setString(2, type);
+			skillsResult = query.executeQuery();
+			//System.out.println("Result test: " + charDetails.getString("name"));
+			
+			//fill the skills list with new skills
+			while(skillsResult.next())
+			{
+				//System.out.println(skillsResult.getString("name"));
+				skills.add(new Skill(skillsResult.getString("name"), 
+						skillsResult.getString("baseCharacteristic"),
+						skillsResult.getString("type"),
+						skillsResult.getInt("rank")));
+			}
+			
+			//System.out.println("getSkills() triggered, skills added: " + itemsAdded);
+		}
+		catch (SQLException e)
+		{
+			System.out.printf("Possible error, no character found with that id (%s) or DB connection issue", charId);
+			e.printStackTrace();
+		}
+		
+		return skills;
 	}
 
 }
