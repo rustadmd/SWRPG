@@ -18,14 +18,14 @@ import swrpg.Settings;
  * @author Mark
  *
  */
-public class CharacteristicDisplay extends JComponent {
+public class OneValueDisplay extends JComponent {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5948346855245054577L;
 
-	public CharacteristicDisplay(String name, int value)
+	public OneValueDisplay(String name, int value)
 	{
 		setLayout(new GridBagLayout());
 		JLabel title = new JLabel(name);

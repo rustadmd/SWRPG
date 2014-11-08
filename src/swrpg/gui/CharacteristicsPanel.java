@@ -26,17 +26,17 @@ public class CharacteristicsPanel extends TitledBorderPanel {
 		setLayout(new GridLayout(1, 6));
 		//System.out.println("Characteristics panel created...");//debugging
 		
-		CharacteristicDisplay brawn = new CharacteristicDisplay("Brawn", c.getBrawn());
+		OneValueDisplay brawn = new OneValueDisplay("Brawn", c.getBrawn());
 		add(brawn);
-		CharacteristicDisplay agility = new CharacteristicDisplay("Agility", c.getAgility());
+		OneValueDisplay agility = new OneValueDisplay("Agility", c.getAgility());
 		add(agility);
-		CharacteristicDisplay intellect = new CharacteristicDisplay("Intellect", c.getIntellect());
+		OneValueDisplay intellect = new OneValueDisplay("Intellect", c.getIntellect());
 		add(intellect);
-		CharacteristicDisplay cunning = new CharacteristicDisplay("Cunning", c.getCunning());
+		OneValueDisplay cunning = new OneValueDisplay("Cunning", c.getCunning());
 		add(cunning);
-		CharacteristicDisplay willpower = new CharacteristicDisplay("Willpower", c.getWillpower());
+		OneValueDisplay willpower = new OneValueDisplay("Willpower", c.getWillpower());
 		add(willpower);
-		CharacteristicDisplay presence = new CharacteristicDisplay("Presence", c.getPresence());
+		OneValueDisplay presence = new OneValueDisplay("Presence", c.getPresence());
 		add(presence);
 	}
 

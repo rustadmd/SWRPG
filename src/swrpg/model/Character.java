@@ -73,6 +73,26 @@ public class Character {
 			combatSkills = cq.getSkills(charId, "Combat");
 			knowledgeSkills = cq.getSkills(charId, "Knowledge");
 			System.out.println("Character created..." + this.getName());
+			
+			//load stats
+			ResultSet stats = cq.getStats(charId);
+			while(stats.next())
+			{
+				String statName = stats.getString("statName");
+				switch (statName)
+				{
+					case "wound": wound = stats.getInt("value"); break;
+					case "woundMax": woundMax = stats.getInt("value"); break;
+					case "strain": strain = stats.getInt("value"); break;
+					case "strainMax": strainMax = stats.getInt("value"); break;
+					case "encumb": encumb = stats.getInt("value"); break;
+					case "encumbMax": encumbMax = stats.getInt("value"); break;
+					case "soak": soak = stats.getInt("value"); break;
+					case "def_range": def_range = stats.getInt("value"); break;
+					case "def_melee": def_melee = stats.getInt("value"); break;
+					default: System.out.println("Stat " + statName +" not found for character " + name	);
+				}
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

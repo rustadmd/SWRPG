@@ -47,6 +47,28 @@ public class CharacterQueries {
 		return charDetails;
 	}
 	
+	public ResultSet getStats(int charId)
+	{
+		Connection swdb = su.getDbConnection();
+		PreparedStatement query = null;
+		ResultSet charDetails = null;
+		
+		try
+		{
+			query = swdb.prepareStatement("SELECT * "
+					+ " FROM Stats s "
+					+ " WHERE charId = ? ");
+			query.setInt(1, charId);
+			charDetails = query.executeQuery();
+			//System.out.println("Result test: " + charDetails.getString("name"));
+		}
+		catch (SQLException e)
+		{
+			System.out.printf("Possible error, no character found with that id (%s) or DB connection issue", charId);
+			e.printStackTrace();
+		}
+		return charDetails;
+	}
 	public ResultSet getCharacteristics(int charId)
 	{
 		Connection swdb = su.getDbConnection();
