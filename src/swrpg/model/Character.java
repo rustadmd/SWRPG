@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import swrpg.database.CharacterQueries;
+import swrpg.database.ItemQueries;
 /**
  * @author Mark
  *
@@ -31,6 +32,8 @@ public class Character {
 	private int woundMax, strainMax, encumbMax, wound, strain, encumb, soak, def_range, def_melee;
 	//Skills
 	private ArrayList<Skill> genSkills, combatSkills, knowledgeSkills;
+	//items
+	private ArrayList<CharItem> itemList;
 	
 	public Character (int id)
 	{
@@ -72,7 +75,6 @@ public class Character {
 			genSkills = cq.getSkills(charId, "General");
 			combatSkills = cq.getSkills(charId, "Combat");
 			knowledgeSkills = cq.getSkills(charId, "Knowledge");
-			System.out.println("Character created..." + this.getName());
 			
 			//load stats
 			ResultSet stats = cq.getStats(charId);
@@ -93,10 +95,16 @@ public class Character {
 					default: System.out.println("Stat " + statName +" not found for character " + name	);
 				}
 			}
+			
+			//add items
+			ItemQueries iq = new ItemQueries();
+			itemList = iq.getCharItem(this);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		//non-sql exception 
+		System.out.println("Character created..." + this.getName());
 	}
 
 	/**
@@ -328,5 +336,12 @@ public class Character {
 	 */
 	public int getDef_melee() {
 		return def_melee;
+	}
+
+	/**
+	 * @return the itemList
+	 */
+	public ArrayList<CharItem> getItemList() {
+		return itemList;
 	}
 }
