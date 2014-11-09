@@ -5,6 +5,7 @@
  */
 package swrpg.gui;
 
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -68,7 +69,7 @@ public class CharacterPanel extends JPanel {
 		add(tabs, tabConstraints);
 		
 		addSkillsTab(tabs);
-		
+		addItemsTab(tabs);
 		}
 	
 	private void addSkillsTab(JTabbedPane p)
@@ -100,4 +101,25 @@ public class CharacterPanel extends JPanel {
 		p.addTab("Skills", skillsPanel);
 	}
 
+	private void addItemsTab(JTabbedPane p)
+	{
+		JPanel itemsPanel = new JPanel();
+		itemsPanel.setLayout(new GridBagLayout());
+		
+		int credits = c.getCredits();
+		FieldDisplay creditDisplay = new FieldDisplay("Credits", Integer.toString(credits));
+		GridBagConstraints creditConstraints = new GridBagConstraints();
+		creditConstraints.gridx = 0;
+		creditConstraints.gridy = 0;
+		itemsPanel.add(creditDisplay, creditConstraints);
+		
+		//add the item list
+		CharItemListPanel itemList = new CharItemListPanel(c.getItemList());
+		GridBagConstraints itemListConstraints = new GridBagConstraints();
+		itemListConstraints.fill = GridBagConstraints.BOTH;
+		itemListConstraints.gridx = 0;
+		itemListConstraints.gridy = 1;
+		itemsPanel.add(itemList, itemListConstraints);
+		p.addTab("Items", itemsPanel);
+	}
 }
