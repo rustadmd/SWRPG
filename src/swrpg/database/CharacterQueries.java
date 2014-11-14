@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import swrpg.model.Obligation;
 import swrpg.model.Skill;
 
 /**
@@ -132,6 +133,47 @@ public class CharacterQueries {
 		}
 		
 		return skills;
+	}
+	
+	public ArrayList<Obligation> getObligations(int charId)
+	{
+		Connection swdb = su.getDbConnection();
+		PreparedStatement query = null;
+		ResultSet obligationsResult = null;
+		ArrayList<Obligation> obligations = new ArrayList<Obligation>(3);//throwaway list, so there can be another
+		
+		try
+		{
+			query = swdb.prepareStatement(
+					"SELECT o.obligationTypeId, o.magnitude, ot.name, o.title, o.complications  "
+					+ "FROM Obligations o JOIN ObligationType ot ON o.obligationTypeId = ot.obligationTypeId "
+					+ " WHERE charId = ? ");
+			query.setInt(1, charId);
+			obligationsResult = query.executeQuery();
+			//System.out.println("Result test: " + charDetails.getString("name"));
+			
+			//fill the skills list with new skills
+			while(obligationsResult.next())
+			{
+				//System.out.println(skillsResult.getString("name"));
+				obligations.add(new Obligation(charId, 
+						obligationsResult.getInt("obligationTypeId"),
+						obligationsResult.getInt("magnitude"),
+						obligationsResult.getString("name"),
+						obligationsResult.getString("title"),
+						obligationsResult.getString("complications"))
+						);
+			}
+			
+			//System.out.println("getSkills() triggered, skills added: " + itemsAdded);
+		}
+		catch (SQLException e)
+		{
+			System.out.printf("Possible error, no character found with that id (%s) or DB connection issue", charId);
+			e.printStackTrace();
+		}
+		
+		return obligations;
 	}
 
 }

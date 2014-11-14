@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;

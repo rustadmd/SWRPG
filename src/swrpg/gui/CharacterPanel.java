@@ -8,11 +8,15 @@ package swrpg.gui;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import swrpg.model.Character;
+import swrpg.model.Obligation;
 
 /**
  * @author Mark
@@ -70,6 +74,7 @@ public class CharacterPanel extends JPanel {
 		
 		addSkillsTab(tabs);
 		addItemsTab(tabs);
+		addMiscTab(tabs);
 		}
 	
 	private void addSkillsTab(JTabbedPane p)
@@ -121,5 +126,47 @@ public class CharacterPanel extends JPanel {
 		itemListConstraints.gridy = 1;
 		itemsPanel.add(itemList, itemListConstraints);
 		p.addTab("Items", itemsPanel);
+	}
+	
+	private void addMiscTab(JTabbedPane p)
+	{
+		//Create mini panel for xp (doesn't need separate panel)//
+		TitledBorderPanel xpPanel = new TitledBorderPanel("XP");
+		xpPanel.setLayout(new GridLayout (2, 1));
+		String totalXp = Integer.toString(c.getXpTotal());
+		FieldDisplay totalXpDisp = new FieldDisplay("Total", totalXp);
+		String availXp = Integer.toString(c.getXpAvailable());
+		FieldDisplay availXpDisp = new FieldDisplay("Available", availXp);
+		xpPanel.add(totalXpDisp);
+		xpPanel.add(availXpDisp);
+		
+		//create obligations panel
+		TitledBorderPanel obligationPanel = new TitledBorderPanel("OBLIGATIONS");
+		ArrayList<Obligation> obligations = c.getObligationList();
+		int numObligations = obligations.size();
+		obligationPanel.setLayout(new GridLayout(1, numObligations));
+		
+		Iterator<Obligation> i = obligations.iterator();
+		while(i.hasNext())
+		{
+			obligationPanel.add(new ObligationDisplay(i.next()));
+		}
+		
+		//put all panels together
+		JPanel miscPanel = new JPanel();
+		miscPanel.setLayout(new GridBagLayout());
+		
+		GridBagConstraints xpCon = new GridBagConstraints();
+		xpCon.gridx = 0;
+		xpCon.gridx = 0;
+		miscPanel.add(xpPanel);
+		
+		GridBagConstraints obCon = new GridBagConstraints();
+		obCon.fill = GridBagConstraints.BOTH;
+		obCon.gridx = 0;
+		obCon.gridy = 1;
+		miscPanel.add(obligationPanel, obCon);
+		
+		p.addTab("Misc", miscPanel);
 	}
 }

@@ -34,6 +34,8 @@ public class Character {
 	private ArrayList<Skill> genSkills, combatSkills, knowledgeSkills;
 	//items
 	private ArrayList<CharItem> itemList;
+	private ArrayList<Obligation> obligationList;
+	//private ArrayList<Motivation> motivationList;
 	
 	public Character (int id)
 	{
@@ -99,6 +101,9 @@ public class Character {
 			//add items
 			ItemQueries iq = new ItemQueries();
 			itemList = iq.getCharItem(this);
+			
+			//fill obligations and motivations
+			obligationList = cq.getObligations(charId);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -343,5 +348,12 @@ public class Character {
 	 */
 	public ArrayList<CharItem> getItemList() {
 		return itemList;
+	}
+
+	/**
+	 * @return the obligationList
+	 */
+	public ArrayList<Obligation> getObligationList() {
+		return obligationList;
 	}
 }
