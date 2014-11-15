@@ -35,7 +35,7 @@ public class Character {
 	//items
 	private ArrayList<CharItem> itemList;
 	private ArrayList<Obligation> obligationList;
-	//private ArrayList<Motivation> motivationList;
+	private ArrayList<Motivation> motivationList;
 	
 	public Character (int id)
 	{
@@ -104,6 +104,7 @@ public class Character {
 			
 			//fill obligations and motivations
 			obligationList = cq.getObligations(charId);
+			motivationList = cq.getMotivations(charId);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -355,5 +356,12 @@ public class Character {
 	 */
 	public ArrayList<Obligation> getObligationList() {
 		return obligationList;
+	}
+
+	/**
+	 * @return the motivationList
+	 */
+	public ArrayList<Motivation> getMotivationList() {
+		return motivationList;
 	}
 }

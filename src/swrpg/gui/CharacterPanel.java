@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import swrpg.model.Character;
+import swrpg.model.Motivation;
 import swrpg.model.Obligation;
 
 /**
@@ -152,6 +153,21 @@ public class CharacterPanel extends JPanel {
 			obligationPanel.add(new ObligationDisplay(i.next()));
 		}
 		
+		//create motivations panel
+		TitledBorderPanel motivationPanel = new TitledBorderPanel("MOTIVATIONS");
+		ArrayList<Motivation> motivations = c.getMotivationList();
+		int numMotivations = motivations.size();
+		//System.out.println("Number of motivations: " + numMotivations);
+		motivationPanel.setLayout(new GridLayout(1, numMotivations));
+		
+		Iterator<Motivation> im = motivations.iterator();
+		while(im.hasNext())
+		{
+			motivationPanel.add(new MotivationDisplay(im.next()));
+			//System.out.println("Motivation display executed");
+		}
+		
+		
 		//put all panels together
 		JPanel miscPanel = new JPanel();
 		miscPanel.setLayout(new GridBagLayout());
@@ -167,6 +183,12 @@ public class CharacterPanel extends JPanel {
 		obCon.gridy = 1;
 		miscPanel.add(obligationPanel, obCon);
 		
+		
+		GridBagConstraints movCon = new GridBagConstraints();
+		//movCon.fill = GridBagConstraints.BOTH;
+		movCon.gridx = 0;
+		movCon.gridy = 2;
+		miscPanel.add(motivationPanel, movCon);
 		p.addTab("Misc", miscPanel);
 	}
 }

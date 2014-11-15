@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import swrpg.model.Motivation;
 import swrpg.model.Obligation;
 import swrpg.model.Skill;
 
@@ -123,7 +124,7 @@ public class CharacterQueries {
 						skillsResult.getString("type"),
 						skillsResult.getInt("rank")));
 			}
-			
+			skillsResult.close();
 			//System.out.println("getSkills() triggered, skills added: " + itemsAdded);
 		}
 		catch (SQLException e)
@@ -164,7 +165,7 @@ public class CharacterQueries {
 						obligationsResult.getString("complications"))
 						);
 			}
-			
+			obligationsResult.close();
 			//System.out.println("getSkills() triggered, skills added: " + itemsAdded);
 		}
 		catch (SQLException e)
@@ -174,6 +175,46 @@ public class CharacterQueries {
 		}
 		
 		return obligations;
+	}
+	
+	public ArrayList<Motivation> getMotivations(int charId)
+	{
+		Connection swdb = su.getDbConnection();
+		PreparedStatement query = null;
+		ResultSet motivationResults = null;
+		ArrayList<Motivation> motivations = new ArrayList<Motivation>(3);//throwaway list, so there can be another
+		
+		try
+		{
+			query = swdb.prepareStatement(
+					"SELECT mt.generalType, mt.name, m.title, m.description  "
+					+ "FROM Motivations m JOIN MotivationType mt ON m.motivationTypeId = mt.motivationTypeId "
+					+ " WHERE charId = ? ");
+			query.setInt(1, charId);
+			motivationResults = query.executeQuery();
+			//System.out.println("Result test: " + charDetails.getString("name"));
+			
+			//fill the skills list with new skills
+			while(motivationResults.next())
+			{
+				//System.out.println(skillsResult.getString("name"));
+				motivations.add(new Motivation(
+						motivationResults.getString("generalType"),
+						motivationResults.getString("name"),
+						motivationResults.getString("title"),
+						motivationResults.getString("description"))
+						);
+			}
+			motivationResults.close();
+			//System.out.println("getSkills() triggered, skills added: " + itemsAdded);
+		}
+		catch (SQLException e)
+		{
+			System.out.printf("Possible error, no motivations for character found with that id (%s) or DB connection issue", charId);
+			e.printStackTrace();
+		}
+		
+		return motivations;
 	}
 
 }
