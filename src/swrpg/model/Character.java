@@ -7,6 +7,7 @@ package swrpg.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import swrpg.database.CharacterQueries;
 import swrpg.database.ItemQueries;
@@ -23,6 +24,8 @@ public class Character {
 	
 	//Narrative elements
 	private String name, player, gender, age, height, build, hair, eyes, noteableFeatures, history, race;
+	private String career;
+	private LinkedList<Specialization> specList;
 	
 	//Characteristics stats
 	private int brawn, agility, intellect, cunning, willpower, presence;
@@ -30,8 +33,11 @@ public class Character {
 	//Numerical stats
 	private int xpTotal, xpAvailable, credits;
 	private int woundMax, strainMax, encumbMax, wound, strain, encumb, soak, def_range, def_melee;
+	private int numBoost, numSetback;
+	
 	//Skills
 	private ArrayList<Skill> genSkills, combatSkills, knowledgeSkills;
+	
 	//items
 	private ArrayList<CharItem> itemList;
 	private ArrayList<Obligation> obligationList;
@@ -61,6 +67,9 @@ public class Character {
 			credits = charDetails.getInt("credits");
 			xpTotal = charDetails.getInt("xpTotal");
 			xpAvailable = charDetails.getInt("xpAvailable");
+			numBoost = charDetails.getInt("numBoost");
+			numSetback = charDetails.getInt("numSetback");
+			career = charDetails.getString("career");
 			charDetails.close();
 			
 			//Load characteristics
@@ -102,9 +111,10 @@ public class Character {
 			ItemQueries iq = new ItemQueries();
 			itemList = iq.getCharItem(this);
 			
-			//fill obligations and motivations
+			//fill obligations and motivations/specializations
 			obligationList = cq.getObligations(charId);
 			motivationList = cq.getMotivations(charId);
+			specList = cq.getSpecializations(charId);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -363,5 +373,21 @@ public class Character {
 	 */
 	public ArrayList<Motivation> getMotivationList() {
 		return motivationList;
+	}
+
+	public String getCareer() {
+		return career;
+	}
+
+	public int getNumBoost() {
+		return numBoost;
+	}
+
+	public int getNumSetback() {
+		return numSetback;
+	}
+
+	public LinkedList<Specialization> getSpecializations() {
+		return specList;
 	}
 }

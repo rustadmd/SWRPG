@@ -58,8 +58,8 @@ public class ItemQueries {
 			//query sql for the list
 			query = swdb.prepareStatement(
 					"SELECT itemId, number, use, notes "
-					+ " FROM CharacterItem ci "
-					+ " WHERE ci.charId = ? ");
+					+ " FROM items i "
+					+ " WHERE i.ownerId = ? ");
 			query.setInt(1, c.getCharId());
 			itemList = query.executeQuery();
 			

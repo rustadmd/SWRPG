@@ -6,8 +6,11 @@
 package swrpg.gui;
 
 import java.awt.GridLayout;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import swrpg.model.Character;
+import swrpg.model.Specialization;
 
 /**
  * @author Mark
@@ -34,6 +37,21 @@ public class CharHeaderPanel extends TitledBorderPanel {
 		add(name);
 		FieldDisplay race = new FieldDisplay("Species", c.getRace());
 		add(race);
+		FieldDisplay career = new FieldDisplay("Career", c.getCareer());
+		add(career);
+		
+		//Process Specializations
+		LinkedList<Specialization> specs = c.getSpecializations();
+		Iterator<Specialization> i = specs.iterator();
+		
+		String list = i.next().getName();
+		while(i.hasNext())
+		{
+			list += ", ";
+			list += i.next().getName();
+		}
+		FieldDisplay specDisplay = new FieldDisplay("Special.", list);
+		add(specDisplay);
 		
 	}
 }

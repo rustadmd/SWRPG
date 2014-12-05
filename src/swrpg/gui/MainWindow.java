@@ -28,7 +28,7 @@ public class MainWindow extends JFrame {
 		setVisible(true);
 		
 		//testing
-		Character mark = new Character(1000);
+		Character mark = new Character(10000);
 		CharacterPanel charPanel = new CharacterPanel(mark);
 		add(charPanel);
 		

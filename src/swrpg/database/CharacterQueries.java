@@ -10,10 +10,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import swrpg.model.Motivation;
 import swrpg.model.Obligation;
 import swrpg.model.Skill;
+import swrpg.model.Specialization;
 
 /**
  * @author Mark
@@ -33,9 +35,10 @@ public class CharacterQueries {
 		{
 			query = swdb.prepareStatement("SELECT c.name, player, gender, age, height"
 					+ ", build, hair, eyes, noteableFeatures, history, credits "
-					+ ", xpTotal, xpAvailable, r.name AS race "
+					+ ", xpTotal, xpAvailable, r.name AS race, cl.name AS career, c.numBoost, c.numSetback "
 					+ " FROM Character c "
 					+ " JOIN Race r ON r.raceId = c.raceId "
+					+ " JOIN CareerList cl ON cl.careerId = c.careerId "
 					+ " WHERE charId = ? ");
 			query.setInt(1, charId);
 			charDetails = query.executeQuery();
@@ -215,6 +218,42 @@ public class CharacterQueries {
 		}
 		
 		return motivations;
+	}
+	
+	public LinkedList<Specialization> getSpecializations(int charId)
+	{
+		Connection swdb = su.getDbConnection();
+		PreparedStatement query = null;
+		ResultSet specResults = null;
+		LinkedList<Specialization> specList = new LinkedList<Specialization>();
+		
+		try
+		{
+			query = swdb.prepareStatement(
+					"SELECT sl.name AS specName  "
+					+ "FROM Specializations s "
+					+ " JOIN SpecializationList sl ON sl.specId = s.specId "
+					+ " WHERE charId = ? ");
+			query.setInt(1, charId);
+			specResults = query.executeQuery();
+			//System.out.println("Result test: " + charDetails.getString("name"));
+			
+			//fill the skills list with new skills
+			while(specResults.next())
+			{
+				//System.out.println(skillsResult.getString("name"));
+				specList.add(new Specialization(specResults.getString("specName")));
+			}
+			specResults.close();
+			//System.out.println("getSkills() triggered, skills added: " + itemsAdded);
+		}
+		catch (SQLException e)
+		{
+			System.out.printf("Possible error, no specializations for character found with that id (%s) or DB connection issue\n", charId);
+			e.printStackTrace();
+		}
+		
+		return specList;
 	}
 
 }
