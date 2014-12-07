@@ -11,6 +11,7 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -75,6 +76,19 @@ public class CharacterPanel extends JPanel {
 		addSkillsTab(tabs);
 		addItemsTab(tabs);
 		addMiscTab(tabs);
+		
+		//Add status box
+		GridBagConstraints statusCon = new GridBagConstraints();
+		statusCon.gridx = 3;
+		statusCon.gridy = 0;
+		TitledBorderPanel status = new TitledBorderPanel("STATUS");
+		status.setLayout(new GridLayout(1,2));
+		JLabel test = new JLabel("Setback Dice:");
+		//test.setFont(test.getFont().deriveFont((float) 30.1));
+		status.add(test);
+		//status.add(new DiceDisplay());
+		status.add(new DiceDisplay(1,1,1,1,1, 1));
+		add(status, statusCon);
 		}
 	
 	private void addSkillsTab(JTabbedPane p)
