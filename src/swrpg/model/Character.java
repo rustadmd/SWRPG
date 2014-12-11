@@ -46,12 +46,15 @@ public class Character {
 	public Character (int id)
 	{
 		charId = id;
-		
+		//System.out.println("Character initialized: " + charId);
 		//Read from database applicable information
 		try {
 			
 			//get generic character details
 			CharacterQueries cq = new CharacterQueries();
+			//cq.setIntegerCharacterField(charId, "numSetback", 3);
+			
+			System.out.println("Retrieving character details: " + charId);
 			ResultSet charDetails = cq.getDetails(charId);
 			name = charDetails.getString("name");
 			player = charDetails.getString("player");
@@ -82,7 +85,9 @@ public class Character {
 			presence = charact.getInt("presence");
 			charact.close();
 			
+			
 			//load skills
+			//System.out.println("Loading character skills: " + charId);
 			genSkills = cq.getSkills(charId, "General");
 			combatSkills = cq.getSkills(charId, "Combat");
 			knowledgeSkills = cq.getSkills(charId, "Knowledge");
@@ -106,12 +111,16 @@ public class Character {
 					default: System.out.println("Stat " + statName +" not found for character " + name	);
 				}
 			}
+			stats.close();
+			cq.closeConnection();
 			
 			//add items
+			//System.out.println("Retrieving character items: " + charId);
 			ItemQueries iq = new ItemQueries();
 			itemList = iq.getCharItem(this);
 			
 			//fill obligations and motivations/specializations
+			//System.out.println("Retrieving obligations: " + charId);
 			obligationList = cq.getObligations(charId);
 			motivationList = cq.getMotivations(charId);
 			specList = cq.getSpecializations(charId);
@@ -121,6 +130,14 @@ public class Character {
 		}
 		//non-sql exception 
 		System.out.println("Character created..." + this.getName());
+	}
+	
+	public void setNumSetback(int numSetback)
+	{
+		this.numSetback = numSetback;
+		CharacterQueries cq = new CharacterQueries();
+		//cq.getMotivations(charId);
+		cq.setIntegerCharacterField(charId, "numSetback", numSetback);
 	}
 
 	/**

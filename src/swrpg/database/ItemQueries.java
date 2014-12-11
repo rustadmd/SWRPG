@@ -21,7 +21,12 @@ import swrpg.model.Item;
  */
 public class ItemQueries {
 	
-	private SqlUtilities su = new SqlUtilities();
+	private SqlUtilities su;
+	
+	public ItemQueries()
+	{
+		su = new SqlUtilities();
+	}
 	
 	public ResultSet getItemDetails(int itemId)
 	{
@@ -81,6 +86,7 @@ public class ItemQueries {
 				CharItem ci = new CharItem(c, i, number, usingBool, notes);
 				charItemList.add(ci);
 			}
+			itemList.close();
 		}
 		catch(SQLException e)
 		{

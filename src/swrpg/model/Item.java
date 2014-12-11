@@ -33,6 +33,7 @@ public class Item {
 			price = details.getInt("price");
 			hardPoints = details.getInt("hardPoints");
 			rarity = details.getInt("rarity");
+			details.close();
 		}
 		catch (SQLException e)
 		{

@@ -10,7 +10,7 @@ public class Motivation {
 		this.type = type;
 		this.title = title;
 		this.description = description;
-		System.out.println("Motivation created: " + title);
+		//System.out.println("Motivation created: " + title);
 	}
 
 	/**

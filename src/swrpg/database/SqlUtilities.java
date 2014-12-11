@@ -16,11 +16,11 @@ public class SqlUtilities {
 	private Connection m_swdb;
 	
 	/**
-	 * Sets up an initial connection to be used with SqlUtilites
+	 *  Does nothing
 	 */
 	public SqlUtilities()
 	{
-		m_swdb = getDbConnection();
+		//do nothing
 	}
 	
 	/**
@@ -71,8 +71,12 @@ public class SqlUtilities {
 	public void closeDB (Connection dbConnect)
 	{
 		try{
-			dbConnect.close();
-			//System.out.println("Connection successfully closed.");
+			if(dbConnect!=null)
+			{
+				dbConnect.close();
+				//System.out.println("Connection successfully closed.");
+			}
+			
 		}
 		
 		catch (SQLException e)
@@ -170,6 +174,11 @@ public class SqlUtilities {
 	 */
 	public void executeQuery(String query)
 	{
+		//System.out.println(query);
+		if(m_swdb==null)
+		{
+			m_swdb = this.getDbConnection();
+		}
 		try{
 			Statement statement = m_swdb.createStatement();
 			//write query

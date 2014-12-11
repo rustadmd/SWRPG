@@ -23,7 +23,12 @@ import swrpg.model.Specialization;
  */
 public class CharacterQueries {
 	
-	private SqlUtilities su = new SqlUtilities();
+	private SqlUtilities su;
+	
+	public CharacterQueries()
+	{
+		su = new SqlUtilities();
+	}
 	
 	public ResultSet getDetails(int charId)
 	{
@@ -256,4 +261,17 @@ public class CharacterQueries {
 		return specList;
 	}
 
+	public void setIntegerCharacterField(int charId, String fieldName, int newValue)
+	{
+		String query = "UPDATE Character  "
+				+ " SET " + fieldName + " = " + newValue
+				+ " WHERE charId = " + charId;
+		su.executeQuery(query);
+	}
+	
+	public void closeConnection()
+	{
+		su.closeDB();
+	}
+	
 }
