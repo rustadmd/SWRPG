@@ -132,6 +132,13 @@ public class Character {
 		System.out.println("Character created..." + this.getName());
 	}
 	
+	public void setNumBoost(int numBoost)
+	{
+		this.numBoost = numBoost;
+		CharacterQueries cq = new CharacterQueries();
+		cq.setIntegerCharacterField(charId, "numBoost", numBoost);
+	}
+	
 	public void setNumSetback(int numSetback)
 	{
 		this.numSetback = numSetback;

@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JButton;
 
+import swrpg.control.ChangeBoost;
 import swrpg.control.ChangeSetback;
 import swrpg.control.ChangeSetback.Action;
 import swrpg.model.Character;
@@ -30,6 +31,7 @@ public class StatusPanel extends TitledBorderPanel {
 		this.c = c;
 		this.setLayout(new BorderLayout());
 		addSetbackPanel();
+		addBoostPanel();
 	}
 	
 	private void addSetbackPanel()
@@ -55,5 +57,30 @@ public class StatusPanel extends TitledBorderPanel {
 		
 		
 		this.add(setbackPanel, BorderLayout.NORTH);
+	}
+	
+	private void addBoostPanel()
+	{
+		TitledBorderPanel boostPanel = new TitledBorderPanel("Setback");
+		boostPanel.setLayout(new BorderLayout());
+		
+		//Add the dice to the display
+		int numBoost = c.getNumBoost();
+		DiceDisplay dd = new DiceDisplay(0,0,0,0,numBoost, 0);
+		boostPanel.add(dd, BorderLayout.NORTH);
+		
+		//Add the controlst to the display
+		JButton add = new JButton("Add Boost");
+		boostPanel.add(add, BorderLayout.WEST);
+		add.addActionListener(new ChangeBoost(c, dd, ChangeBoost.Action.ADD));
+		JButton remove = new JButton("Remove Boost");
+		remove.addActionListener(new ChangeBoost(c, dd, ChangeBoost.Action.REMOVE));
+		boostPanel.add(remove, BorderLayout.EAST);
+		JButton clear = new JButton("Clear Boost");
+		clear.addActionListener(new ChangeBoost(c, dd, ChangeBoost.Action.CLEAR));
+		boostPanel.add(clear, BorderLayout.SOUTH);
+		
+		
+		this.add(boostPanel, BorderLayout.CENTER);
 	}
 }

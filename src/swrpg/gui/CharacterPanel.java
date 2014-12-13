@@ -80,6 +80,7 @@ public class CharacterPanel extends JPanel {
 		GridBagConstraints statusCon = new GridBagConstraints();
 		statusCon.gridx = 3;
 		statusCon.gridy = 0;
+		statusCon.gridheight = 3;
 		StatusPanel status = new StatusPanel(c);
 		add(status, statusCon);
 		}

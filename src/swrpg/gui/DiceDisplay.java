@@ -62,6 +62,7 @@ public class DiceDisplay extends JComponent {
 		{
 			layout.setColumns(1);
 			JLabel none = new JLabel("None");
+			none.setFont(none.getFont().deriveFont((float)15));
 			none.setHorizontalAlignment(JLabel.CENTER);
 			add(none);
 		}
