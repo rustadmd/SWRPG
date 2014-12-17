@@ -9,21 +9,26 @@ package swrpg.model;
  * @author Mark
  *
  */
-public class CharItem {
+public class OwnedItem {
 	
 	private Item item;
-	private Character c;
+	private ItemOwner itemOwner;
 	private int count;
 	private boolean using;
 	private String notes;
 	
-	public CharItem (Character c, Item i, int count, boolean using, String notes)
+	public OwnedItem (ItemOwner io, Item i, int count, boolean using, String notes)
 	{
 		item = i;
-		this.c = c;
+		this.itemOwner = io;
 		this.count = count;
 		this.using = using;
 		this.notes = notes;
+	}
+	
+	public String toString()
+	{
+		return item.getName();
 	}
 
 	/**
@@ -36,8 +41,8 @@ public class CharItem {
 	/**
 	 * @return the c
 	 */
-	public Character getC() {
-		return c;
+	public ItemOwner getItemOwner() {
+		return itemOwner;
 	}
 
 	/**

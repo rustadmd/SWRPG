@@ -29,6 +29,7 @@ public class Item {
 			name = details.getString("name");
 			description = details.getString("description");
 			
+			type = details.getString("itemType");
 			encumb = details.getInt("encumb");
 			price = details.getInt("price");
 			hardPoints = details.getInt("hardPoints");

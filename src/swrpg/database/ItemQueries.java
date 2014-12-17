@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import swrpg.model.Character;
-import swrpg.model.CharItem;
+import swrpg.model.OwnedItem;
 import swrpg.model.Item;
 
 /**
@@ -37,8 +37,10 @@ public class ItemQueries {
 		try
 		{
 			query = swdb.prepareStatement(
-					"SELECT * "
+					"SELECT i.itemId, i.name, i.encumb, i.price, i.rarity, "
+					+ " i.description, i.hardPoints, it.itemType "
 					+ " FROM Item i "
+					+ "	JOIN ItemType it ON i.itemTypeId = it.itemTypeId "
 					+ " WHERE itemId = ? ");
 			query.setInt(1, itemId);
 			itemDetails = query.executeQuery();
@@ -46,15 +48,15 @@ public class ItemQueries {
 		}
 		catch (SQLException e)
 		{
-			System.out.printf("Possible error, no item found with that id (%s) or DB connection issue", itemId);
+			System.out.printf("Possible error, no item found with that id (%s) or DB connection issue\n", itemId);
 			e.printStackTrace();
 		}
 		return itemDetails;
 	}
 	
-	public ArrayList<CharItem> getCharItem(Character c)
+	public ArrayList<OwnedItem> getCharItem(Character c)
 	{
-		ArrayList<CharItem> charItemList = new ArrayList<CharItem>();
+		ArrayList<OwnedItem> charItemList = new ArrayList<OwnedItem>();
 		Connection swdb = su.getDbConnection();
 		PreparedStatement query = null;
 		ResultSet itemList = null;
@@ -83,7 +85,7 @@ public class ItemQueries {
 					usingBool= false;
 				}
 				String notes = itemList.getString("notes");
-				CharItem ci = new CharItem(c, i, number, usingBool, notes);
+				OwnedItem ci = new OwnedItem(c, i, number, usingBool, notes);
 				charItemList.add(ci);
 			}
 			itemList.close();

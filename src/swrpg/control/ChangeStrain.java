@@ -63,17 +63,16 @@ public class ChangeStrain extends AbstractAction {
 		switch (a)
 		{
 		case INC_THRESHHOLD:
-			oldValue = c.getWoundMax();
+			oldValue = c.getStrainMax();
 			newValue = oldValue + change;
 			disp.setLeftValue(Integer.toString(newValue));
 			c.setStrainMax(newValue);
 			break;
 		case RECOVER_CURRENT:
-			oldValue = c.getWound();
+			oldValue = c.getStrain();
 			newValue = oldValue + change;
-			
 			//make sure you cannot surpass threshhold
-			int max = c.getWoundMax();
+			int max = c.getStrainMax();
 			if(newValue > max)
 			{
 				newValue = max;
@@ -82,7 +81,7 @@ public class ChangeStrain extends AbstractAction {
 			c.setStrain(newValue);
 			break;
 		case TAKE_CURRENT:
-			oldValue = c.getWound();
+			oldValue = c.getStrain();
 			newValue = oldValue - change;
 			if(newValue < 0)
 			{

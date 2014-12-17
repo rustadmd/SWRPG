@@ -37,7 +37,7 @@ public class StatsPanel extends TitledBorderPanel {
 		
 		wounds = new TwoValueDisplay("Wounds", c.getWoundMax(), c.getWound());
 		add(wounds);
-		strain = new TwoValueDisplay("Strain", c.getWoundMax(), c.getWound());
+		strain = new TwoValueDisplay("Strain", c.getStrainMax(), c.getStrain());
 		add(strain);
 		encumb = new TwoValueDisplay("Encumberance", c.getEncumbMax(), c.getEncumb());
 		add(encumb);

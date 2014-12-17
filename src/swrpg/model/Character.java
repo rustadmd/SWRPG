@@ -15,9 +15,7 @@ import swrpg.database.ItemQueries;
  * @author Mark
  *
  */
-public class Character {
-	
-	
+public class Character implements ItemOwner{
 	
 	//Character Fields
 	private int charId;
@@ -39,7 +37,7 @@ public class Character {
 	private ArrayList<Skill> genSkills, combatSkills, knowledgeSkills;
 	
 	//items
-	private ArrayList<CharItem> itemList;
+	private ArrayList<OwnedItem> itemList;
 	private ArrayList<Obligation> obligationList;
 	private ArrayList<Motivation> motivationList;
 	
@@ -413,7 +411,7 @@ public class Character {
 	/**
 	 * @return the itemList
 	 */
-	public ArrayList<CharItem> getItemList() {
+	public ArrayList<OwnedItem> getItemList() {
 		return itemList;
 	}
 

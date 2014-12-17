@@ -63,7 +63,7 @@ public class StatusPanel extends TitledBorderPanel {
 	
 	private void addBoostPanel()
 	{
-		TitledBorderPanel boostPanel = new TitledBorderPanel("Setback");
+		TitledBorderPanel boostPanel = new TitledBorderPanel("Boost");
 		boostPanel.setLayout(new BorderLayout());
 		
 		//Add the dice to the display

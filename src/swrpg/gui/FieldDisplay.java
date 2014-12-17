@@ -10,7 +10,9 @@ import java.awt.Font;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 
 /**
  * @author Mark
@@ -23,7 +25,8 @@ public class FieldDisplay extends JComponent {
 	 * 
 	 */
 	private static final long serialVersionUID = -952700717783957168L;
-	private JLabel title, value;
+	private JLabel title; 
+	private JTextField value;
 	private Font titleFont, valueFont;
 	
 	//Derive default fonts from the default
@@ -41,7 +44,9 @@ public class FieldDisplay extends JComponent {
 		this.title = new JLabel(title + ":");
 		setTitleFont(titleFont);
 		
-		this.value = new JLabel(value);
+		this.value = new JTextField(value);
+		this.value.setBorder(new EmptyBorder(0,0,0,0));
+		setEditable(false);
 		setValueFont(valueFont);
 		
 		int verticalGap = 0;
@@ -49,8 +54,14 @@ public class FieldDisplay extends JComponent {
 		setLayout(new BorderLayout(horizontalGap, verticalGap));
 		add(this.title, BorderLayout.WEST);
 		add(this.value, BorderLayout.EAST);
-	}
 
+	}
+	
+	public void setEditable(boolean isEditable)
+	{
+		value.setEditable(isEditable);
+	}
+	
 	/**
 	 * @return the title
 	 */
