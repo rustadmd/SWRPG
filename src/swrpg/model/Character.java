@@ -24,7 +24,7 @@ public class Character {
 	
 	//Narrative elements
 	private String name, player, gender, age, height, build, hair, eyes, noteableFeatures, history, race;
-	private String career;
+	private String career, statusNotes;
 	private LinkedList<Specialization> specList;
 	
 	//Characteristics stats
@@ -73,6 +73,7 @@ public class Character {
 			numBoost = charDetails.getInt("numBoost");
 			numSetback = charDetails.getInt("numSetback");
 			career = charDetails.getString("career");
+			statusNotes = charDetails.getString("statusNote");
 			charDetails.close();
 			
 			//Load characteristics
@@ -130,6 +131,37 @@ public class Character {
 		}
 		//non-sql exception 
 		System.out.println("Character created..." + this.getName());
+	}
+	
+	public void setWound(int wound) {
+		this.wound = wound;
+		CharacterQueries cq = new CharacterQueries();
+		cq.setStats(charId, "wound", wound);
+	}
+	
+	public void setWoundMax(int woundMax) {
+		this.woundMax = woundMax;
+		CharacterQueries cq = new CharacterQueries();
+		cq.setStats(charId, "woundMax", woundMax);
+	}
+	
+	public void setStrainMax(int strainMax) {
+		this.strainMax = strainMax;
+		CharacterQueries cq = new CharacterQueries();
+		cq.setStats(charId, "strainMax", strainMax);
+	}
+
+	public void setStrain(int strain) {
+		this.strain = strain;
+		CharacterQueries cq = new CharacterQueries();
+		cq.setStats(charId, "strain", strain);
+	}
+
+	public void setStatusNotes(String newNotes)
+	{
+		this.statusNotes = newNotes;
+		CharacterQueries cq = new CharacterQueries();
+		cq.setStringCharacterField(charId, "statusNote", newNotes);
 	}
 	
 	public void setNumBoost(int numBoost)
@@ -412,6 +444,14 @@ public class Character {
 	}
 
 	public LinkedList<Specialization> getSpecializations() {
+		return specList;
+	}
+
+	public String getStatusNotes() {
+		return statusNotes;
+	}
+
+	public LinkedList<Specialization> getSpecList() {
 		return specList;
 	}
 }

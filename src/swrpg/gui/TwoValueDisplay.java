@@ -28,6 +28,7 @@ public class TwoValueDisplay extends JComponent {
 	private final String DEFAULT_LEFT_MOD = "Threshold";
 	private final String DEFAULT_RIGHT_MOD = "Current";
 	private final String SPACING = " ";
+	private JLabel leftValueLabel, rightValueLabel;
 	
 	public TwoValueDisplay(String name, int leftSide, int rightSide)
 	{
@@ -46,7 +47,7 @@ public class TwoValueDisplay extends JComponent {
 		add(title, titleConstraint);
 		
 		//Add left value
-		JLabel leftValueLabel = new JLabel(Integer.toString(leftSide));
+		leftValueLabel = new JLabel(Integer.toString(leftSide));
 		leftValueLabel.setFont(valueFont);
 		GridBagConstraints leftSideConstraint = new GridBagConstraints();
 		leftSideConstraint.gridx =0;
@@ -54,7 +55,7 @@ public class TwoValueDisplay extends JComponent {
 		add(leftValueLabel, leftSideConstraint);
 		
 		//add right value
-		JLabel rightValueLabel = new JLabel(Integer.toString(rightSide));
+		rightValueLabel = new JLabel(Integer.toString(rightSide));
 		rightValueLabel.setFont(valueFont);
 		GridBagConstraints rightSideConstraint = new GridBagConstraints();
 		rightSideConstraint.gridx =1;
@@ -78,6 +79,16 @@ public class TwoValueDisplay extends JComponent {
 		rightModConstraints.gridx =1;
 		rightModConstraints.gridy =2;
 		add(rightModLabel, rightModConstraints);
+	}
+	
+	public void setLeftValue(String newValue)
+	{
+		leftValueLabel.setText(newValue);
+	}
+	
+	public void setRightValue(String newValue)
+	{
+		rightValueLabel.setText(newValue);
 	}
 
 }

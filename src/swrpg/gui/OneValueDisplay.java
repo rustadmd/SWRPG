@@ -25,6 +25,8 @@ public class OneValueDisplay extends JComponent {
 	 */
 	private static final long serialVersionUID = 5948346855245054577L;
 
+	JLabel valueLabel;
+	
 	public OneValueDisplay(String name, int value)
 	{
 		setLayout(new GridBagLayout());
@@ -38,5 +40,10 @@ public class OneValueDisplay extends JComponent {
 		GridBagConstraints valueConstraint = new GridBagConstraints();
 		valueConstraint.gridy =1;
 		add(valueLabel, valueConstraint);
+	}
+	
+	public void setValue(String newValue)
+	{
+		valueLabel.setText(newValue);
 	}
 }

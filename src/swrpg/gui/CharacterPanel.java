@@ -11,9 +11,13 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 
+import swrpg.control.ChangeStrain;
+import swrpg.control.ChangeWounds;
 import swrpg.model.Character;
 import swrpg.model.Motivation;
 import swrpg.model.Obligation;
@@ -29,6 +33,9 @@ public class CharacterPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -4984603624626444246L;
 	private Character c;
+	
+	//Various panels
+	StatsPanel statsPanel;
 	
 	public CharacterPanel(Character c)
 	{
@@ -55,7 +62,8 @@ public class CharacterPanel extends JPanel {
 		stats.gridx = 0;
 		stats.gridy = 1;
 		stats.gridwidth = fullWidth;
-		add(new StatsPanel(c), stats);
+		statsPanel = new StatsPanel(c);
+		add(statsPanel, stats);
 		
 		//characteristics panel
 		GridBagConstraints charac = new GridBagConstraints();
@@ -83,6 +91,8 @@ public class CharacterPanel extends JPanel {
 		statusCon.gridheight = 3;
 		StatusPanel status = new StatusPanel(c);
 		add(status, statusCon);
+		
+		addControlsPanel();
 		}
 	
 	private void addSkillsTab(JTabbedPane p)
@@ -197,5 +207,53 @@ public class CharacterPanel extends JPanel {
 		movCon.gridy = 2;
 		miscPanel.add(motivationPanel, movCon);
 		p.addTab("Misc", miscPanel);
+	}
+	
+	private void addControlsPanel()
+	{
+		TitledBorderPanel controlPanel = new TitledBorderPanel("CONTROLS");
+		GridBagConstraints conCon = new GridBagConstraints();
+		conCon.gridx = 3; conCon.gridy = 3;
+		controlPanel.setLayout(new GridBagLayout());
+		
+		JTextField input = new JTextField("1");
+		input.setColumns(5);
+		GridBagConstraints inputCon = new GridBagConstraints();
+		inputCon.gridx = 0; inputCon.gridy = 0; inputCon.gridwidth = 2;
+		controlPanel.add(input, inputCon);
+		
+		JButton takeStrain = new JButton("Take Strain");
+		GridBagConstraints takeStrainCon = new GridBagConstraints();
+		takeStrainCon.gridy = 1;
+		ChangeStrain takeStrainAction 
+			= new ChangeStrain(c, ChangeStrain.Action.TAKE_CURRENT, statsPanel.getStrain(), input);
+		takeStrain.addActionListener(takeStrainAction);
+		controlPanel.add(takeStrain, takeStrainCon);
+		
+		JButton recoverStrain = new JButton("Recover Strain");
+		GridBagConstraints recoverStrainCon = new GridBagConstraints();
+		recoverStrainCon.gridx = 1; recoverStrainCon.gridy = 1;
+		ChangeStrain recoverStrainAction 
+			= new ChangeStrain(c, ChangeStrain.Action.RECOVER_CURRENT, statsPanel.getStrain(), input);
+		recoverStrain.addActionListener(recoverStrainAction);
+		controlPanel.add(recoverStrain, recoverStrainCon);
+		
+		JButton takeWound = new JButton("Take Wounds");
+		GridBagConstraints takeWoundCon = new GridBagConstraints();
+		takeWoundCon.gridx = 0; takeWoundCon.gridy = 2;
+		ChangeWounds takeWoundsAction 
+			= new ChangeWounds(c, ChangeWounds.Action.TAKE_CURRENT, statsPanel.getWounds(), input);
+		takeWound.addActionListener(takeWoundsAction);
+		controlPanel.add(takeWound, takeWoundCon);
+		
+		JButton recoverWounds = new JButton("Recover Wounds");
+		GridBagConstraints recoverWoundsCon = new GridBagConstraints();
+		recoverWoundsCon.gridx = 1; recoverWoundsCon.gridy = 2;
+		ChangeWounds recoverWoundsAction 
+			= new ChangeWounds(c, ChangeWounds.Action.RECOVER_CURRENT, statsPanel.getWounds(), input);
+		recoverWounds.addActionListener(recoverWoundsAction);
+		controlPanel.add(recoverWounds, recoverWoundsCon);
+		
+		add(controlPanel, conCon);
 	}
 }

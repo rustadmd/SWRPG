@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import swrpg.control.ChangeBoost;
 import swrpg.control.ChangeSetback;
 import swrpg.control.ChangeSetback.Action;
+import swrpg.control.ChangeStatusNote;
 import swrpg.model.Character;
 
 /**
@@ -32,6 +33,7 @@ public class StatusPanel extends TitledBorderPanel {
 		this.setLayout(new BorderLayout());
 		addSetbackPanel();
 		addBoostPanel();
+		addStatusNotePanel();
 	}
 	
 	private void addSetbackPanel()
@@ -82,5 +84,14 @@ public class StatusPanel extends TitledBorderPanel {
 		
 		
 		this.add(boostPanel, BorderLayout.CENTER);
+	}
+	
+	private void addStatusNotePanel()
+	{
+		EditableLongFieldDisplay statusNotesDisplay = new EditableLongFieldDisplay("Status Notes", c.getStatusNotes());
+		//statusNotesDisplay.setRows(4);
+		ChangeStatusNote action = new ChangeStatusNote(c, statusNotesDisplay);
+		statusNotesDisplay.addActionListener(action);
+		add(statusNotesDisplay, BorderLayout.SOUTH);
 	}
 }

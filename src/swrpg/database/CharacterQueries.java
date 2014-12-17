@@ -28,6 +28,7 @@ public class CharacterQueries {
 	public CharacterQueries()
 	{
 		su = new SqlUtilities();
+		//su.closeDB();
 	}
 	
 	public ResultSet getDetails(int charId)
@@ -40,7 +41,8 @@ public class CharacterQueries {
 		{
 			query = swdb.prepareStatement("SELECT c.name, player, gender, age, height"
 					+ ", build, hair, eyes, noteableFeatures, history, credits "
-					+ ", xpTotal, xpAvailable, r.name AS race, cl.name AS career, c.numBoost, c.numSetback "
+					+ ", xpTotal, xpAvailable, r.name AS race, cl.name AS career, c.numBoost, c.numSetback"
+					+ ", c.statusNote "
 					+ " FROM Character c "
 					+ " JOIN Race r ON r.raceId = c.raceId "
 					+ " JOIN CareerList cl ON cl.careerId = c.careerId "
@@ -265,6 +267,23 @@ public class CharacterQueries {
 	{
 		String query = "UPDATE Character  "
 				+ " SET " + fieldName + " = " + newValue
+				+ " WHERE charId = " + charId;
+		su.executeQuery(query);
+	}
+	
+	public void setStats(int charId, String fieldName, int newValue)
+	{
+		String query = "UPDATE Stats  "
+				+ " SET value = " + newValue
+				+ " WHERE charId = " + charId
+				+ " AND statName = '" + fieldName + "'";
+		su.executeQuery(query);
+	}
+	
+	public void setStringCharacterField(int charId, String fieldName, String newValue)
+	{
+		String query = "UPDATE Character  "
+				+ " SET " + fieldName + " = '" + newValue + "' "
 				+ " WHERE charId = " + charId;
 		su.executeQuery(query);
 	}
